@@ -1,0 +1,40 @@
+<div class="container mt-4">
+  <!-- Page Title -->
+  <h2 class="mb-4">Edit Category</h2>
+  <ng-container *ngIf ="model; else notFound">
+
+  <!-- Category Form -->
+  <form #form="ngForm" (ngSubmit)="onsubmit()" class="form">
+    <div class="mb-3">
+      <label for="categoryName" class="form-label">Category Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="categoryName"
+        placeholder="Enter category name"
+        name="categoryName"
+        [(ngModel)]="model.name"
+      />
+    </div>
+<br>
+    <div class="mb-3">
+      <label for="categoryUrl" class="form-label">Category URL Handle</label>
+      <input
+        type="text"
+        class="form-control"
+        id="categoryUrl"
+        placeholder="Enter URL handle"
+        name="categoryUrl"
+        [(ngModel)]="model.urlHandle"
+      />
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+  </ng-container>
+  <ng-template #notFound>
+    <div class="alert alert-danger" role="alert">
+      Category not found.
+    </div>
+  </ng-template>
+</div>

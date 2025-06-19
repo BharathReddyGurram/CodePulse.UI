@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
+    <h1 class="mt-3 mb-0">Blog Posts</h1>
+
+    <div class="d-flex justify-content-end mt-3">
+        <a class="btn btn-primary" [routerLink]="['/admin/blogposts/add']">Add Blog Post</a>
+    </div>
+    </div>
+    
+    <ng-container *ngIf="blogPosts$ | async as blogposts">
+    <div class="container py-4">
+  <!-- <h2 class="mb-4 text-primary">Blog Posts</h2> -->
+
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col" *ngFor="let post of blogposts">
+      <div class="card h-100 shadow-sm">
+        <img [src]="post.featuredImageUrl" class="card-img-top" alt="Image of {{ post.title }}" *ngIf="post.featuredImageUrl">
+        <div class="card-body">
+          <h5 class="card-title text-dark">{{ post.title }}</h5>
+          <p class="card-text text-muted small">{{ post.shortDescription }}</p>
+          <p class="text-secondary mb-1">
+            <strong>By:</strong> {{ post.author }} |
+            <strong>Date:</strong> {{ post.publishedDate | date: 'mediumDate' }}
+          </p>
+        </div>
+        <div class="card-footer bg-white border-top-0 d-flex justify-content-between align-items-center">
+          <a [routerLink]="['/blog', post.urlHandle]" class="btn btn-outline-primary btn-sm">Read More</a>
+          <span class="badge bg-success" *ngIf="post.isVisible">Visible</span>
+          <span class="badge bg-secondary" *ngIf="!post.isVisible">Hidden</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    </ng-container>
+</div>

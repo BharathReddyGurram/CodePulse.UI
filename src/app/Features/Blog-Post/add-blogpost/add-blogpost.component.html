@@ -1,0 +1,120 @@
+<div class="container mt-4">
+  <!-- Page Title -->
+  <h2 class="mb-4">Add Blog Post</h2>
+
+  <!-- Category Form -->
+  <form #form="ngForm" (ngSubmit)="OnFormSubmit()" class="mb-5">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        placeholder="Enter Title"
+        name="title"
+        [(ngModel)]="model.title" />
+    </div>
+
+    <div class="mb-3">
+      <label for="urlHandle" class="form-label">Url Handle</label>
+      <input
+        type="text"
+        class="form-control"
+        id="urlHandle"
+        placeholder="Enter Url Handle"
+        name="urlHandle"
+        [(ngModel)]="model.urlHandle"
+      />
+    </div>
+   
+
+    <div class="mb-3">
+      <label for="shortDescription" class="form-label">Short Description</label>
+      <input
+        type="text"
+        class="form-control"
+        id="shortDescription"
+        placeholder="Enter Short Description"
+        name="shortDescription"
+        [(ngModel)]="model.shortDescription"
+      />
+    </div>
+   
+    <div class="mb-3">
+      <label for="content" class="form-label">Content</label>
+      <div class="d-flex flex-row">
+        <div class="col-6 p-2">
+            <textarea 
+              class="form-control"
+              id="content"
+              placeholder="Enter Content"
+              name="content"
+              style="height: 350px; max-height: 350px;"
+              [(ngModel)]="model.content">
+            </textarea>
+        </div>
+
+        <div class="col-6 p-2" style="max-height: 350px; overflow-y: scroll;">
+          <markdown [data]="model.content"></markdown>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="mb-3">
+      <label for="featuredImageUrl" class="form-label">Featured Image Url</label>
+
+      <ng-container *ngIf="model.featuredImageUrl !== ''">
+        <div>
+          <img [src]="model.featuredImageUrl" class="img-fluid mb-2" alt="Featured Image" style="max-height: 100px; max-width: 100%;">
+        </div>
+      </ng-container>
+
+
+      <input
+        type="text"
+        class="form-control"
+        id="featuredImageUrl"
+        placeholder="Enter Featured Image Url"
+        name="featuredImageUrl"
+        [(ngModel)]="model.featuredImageUrl"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="publishedDate" class="form-label">Published Date</label>
+      <input
+        type="date"
+        class="form-control"
+        id="publishedDate"
+        placeholder="Enter Featured Image Url"
+        name="publishedDate"
+        value="{{model.publishedDate}}"
+        [ngModel]="model.publishedDate | date:'yyyy-MM-dd'"
+        (ngModelChange)="model.publishedDate = $event"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="author" class="form-label">Author</label>
+      <input
+        type="text"
+        class="form-control"
+        id="author"
+        placeholder="Enter author"
+        name="author"
+        [(ngModel)]="model.author"
+      />
+    </div>
+
+    <div class="form-check">
+     <input class="form-check-input" type="checkbox" value="" id="isVisibile" name="isVisible" [(ngModel)]="model.isVisible">
+     <label class="form-check-label" for="isVisibile" >
+       Is Visible ?
+     </label>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary" >Save</button>
+  </form>
+</div>

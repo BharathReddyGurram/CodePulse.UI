@@ -45,6 +45,8 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
     this.categorySubscription = this.categoryService.GetByIdCategory(id).subscribe({
       next: (response) =>{
         this.model =response;
+
+        //Divya
       }
     })
   }

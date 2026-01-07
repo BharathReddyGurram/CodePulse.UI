@@ -1,17 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CategoryListComponent } from './Features/Category/category-list/category-list.component';
-import { AddCategoryComponent } from './Features/Category/add-category/add-category.component';
-import { EditCategoryComponent } from './Features/Category/edit-category/edit-category.component';
 import { BlogpostListComponent } from './Features/Blog-Post/blogpost-list/blogpost-list.component';
 import { AddBlogpostComponent } from './Features/Blog-Post/add-blogpost/add-blogpost.component';
+import { LoginComponent } from './Features/Auth/login/login.component';
+import { SignupComponent } from './Features/Auth/signup/signup.component';
+import { HomeComponent } from './Features/User-Screens/home/home.component';
 
 const routes: Routes = [
+  {path: '', redirectTo: 'login', pathMatch: 'full' },
   {path: 'admin/categories', component: CategoryListComponent},
-  {path: 'admin/categories/add', component: AddCategoryComponent},
-  {path: 'admin/categories/edit/:id', component: EditCategoryComponent},
   {path: 'admin/blogposts', component: BlogpostListComponent},
-  {path: 'admin/blogposts/add', component: AddBlogpostComponent}
+  {path: 'admin/blogposts/add', component: AddBlogpostComponent},
+  {path: 'login', component: LoginComponent},
+  { path: 'signup', component: SignupComponent },
+  { path: 'home', component: HomeComponent },
+  {
+  path: 'admin',
+  loadChildren: () =>
+    import('./admin/admin.module').then(m => m.AdminModule)
+}
 ];
 
 @NgModule({

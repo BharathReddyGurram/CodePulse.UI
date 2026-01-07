@@ -1,0 +1,149 @@
+<div class="admin-dashboard">
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <h1>Overview</h1>
+      <p>Insights for today</p>
+    </div>
+    <!-- <div class="topbar-right">
+      <div class="date-pill">
+        <span>Today</span>
+      </div>
+      <button class="icon-btn">
+        <span>🔔</span>
+      </button>
+      <div class="profile-chip">
+        <div class="avatar">AM</div>
+        <div class="info">
+          <span class="name">Admin Manager</span>
+          <span class="role">Super Admin</span>
+        </div>
+      </div>
+    </div> -->
+  </header>
+
+  <!-- KPI cards -->
+  <section class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span>Total Sales</span>
+        <span class="pill positive">+14%</span>
+      </div>
+      <h2>$24,500</h2>
+      <p>vs last 7 days</p>
+      <div class="kpi-chart skeleton"></div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span>Orders</span>
+        <span class="pill positive">+8%</span>
+      </div>
+      <h2>1,245</h2>
+      <p>Completed orders</p>
+      <div class="kpi-chart skeleton"></div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span>New Customers</span>
+        <span class="pill neutral">+3%</span>
+      </div>
+      <h2>320</h2>
+      <p>Last 30 days</p>
+      <div class="kpi-chart skeleton"></div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span>Refunds</span>
+        <span class="pill negative">-2%</span>
+      </div>
+      <h2>18</h2>
+      <p>Last 7 days</p>
+      <div class="kpi-chart skeleton"></div>
+    </div>
+  </section>
+
+  <section class="actions-row">
+  <div class="action-card" routerLink="/admin/categories">
+    <div class="icon">📂</div>
+    <div class="text">
+      <h4>Category</h4>
+      <p>Manage and organize product categories</p>
+    </div>
+  </div>
+
+  <div class="action-card" routerLink="/admin/products">
+    <div class="icon">🛍️</div>
+    <div class="text">
+      <h4>Create product</h4>
+      <p>Add new items to your catalog</p>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Main content: chart + table -->
+  <section class="main-grid">
+    <!-- Sales chart placeholder -->
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <h3>Revenue</h3>
+          <p>Last 7 days</p>
+        </div>
+        <select>
+          <option>Last 7 days</option>
+          <option>Last 30 days</option>
+          <option>This year</option>
+        </select>
+      </div>
+      <div class="chart-area skeleton"></div>
+    </div>
+
+    <!-- Recent orders -->
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <h3>Recent orders</h3>
+          <p>Latest activity</p>
+        </div>
+        <button class="link-btn">View all</button>
+      </div>
+      <div class="table">
+        <div class="table-header">
+          <span>Order</span>
+          <span>Customer</span>
+          <span>Status</span>
+          <span>Amount</span>
+        </div>
+
+        <div class="table-row">
+          <span>#10234</span>
+          <span>Sarah Johnson</span>
+          <span><span class="status-chip success">Paid</span></span>
+          <span>$120.00</span>
+        </div>
+        <div class="table-row">
+          <span>#10233</span>
+          <span>Dev Patel</span>
+          <span><span class="status-chip pending">Pending</span></span>
+          <span>$89.90</span>
+        </div>
+        <div class="table-row">
+          <span>#10232</span>
+          <span>Emma Wilson</span>
+          <span><span class="status-chip cancelled">Cancelled</span></span>
+          <span>$59.99</span>
+        </div>
+        <div class="table-row">
+          <span>#10231</span>
+          <span>Michael Lee</span>
+          <span><span class="status-chip success">Paid</span></span>
+          <span>$240.00</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

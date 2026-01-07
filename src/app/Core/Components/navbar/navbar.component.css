@@ -1,0 +1,240 @@
+/* navbar.component.scss */
+:host {
+  display: block;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem 0.9rem;
+  background: #ffffffcc;
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid #e2e8f0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Top row */
+.navbar-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Brand */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: radial-gradient(circle at 0% 0%, #4f46e5, #0ea5e9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f9fafb;
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 0 10px 35px rgba(15, 23, 42, 0.25);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+}
+
+.brand-name {
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.brand-env {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+/* Actions */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.nav-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  font-size: 0.78rem;
+  color: #111827;
+  cursor: default;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+}
+
+.dot.live {
+  background: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+}
+
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+
+.icon-btn .icon {
+  font-size: 0.85rem;
+  color: #4b5563;
+}
+
+.icon-btn:hover {
+  transform: translateY(-1px);
+  border-color: #cbd5f5;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+}
+
+/* Profile */
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  color: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.profile-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-text .name {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.profile-text .role {
+  font-size: 0.72rem;
+  color: #9ca3af;
+}
+
+/* Deals strip */
+.navbar-strip {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.15rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.85rem;
+  background: linear-gradient(90deg, #eef2ff, #ecfeff);
+  border: 1px solid #e0e7ff;
+  font-size: 0.82rem;
+}
+
+.badge {
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+  background: #4f46e5;
+  color: #f9fafb;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.strip-text {
+  flex: 1;
+  color: #1e293b;
+}
+
+.strip-link {
+  border: none;
+  background: transparent;
+  color: #2563eb;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.15rem 0.4rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.7rem 1rem 0.85rem;
+  }
+
+  .navbar-main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .navbar-strip {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.navbar {
+  width: 100%;
+  margin: 0 auto;
+  text-align: left;          /* reset */
+}
+
+.navbar-main,
+.navbar-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;  /* brand left, actions right */
+}
+
+.navbar-strip {
+  justify-content: flex-start;     /* all strip content from left */
+}
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;      /* instead of center */
+}

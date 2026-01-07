@@ -1,10 +1,28 @@
 import { Injectable } from '@angular/core';
-import { AddCategoryRequest } from '../Model/add-category-request';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Category } from '../Model/category';
+
 import { environment } from 'src/environments/environment';
-import { UpdateCategoryRequest } from '../Model/update-category-request';
+
+export interface Category {
+  id: number;
+  name: string;
+  description?: string;
+  isActive: boolean;
+  productCount: number;
+};
+
+export interface CreateCategoryRequest {
+  Name: string;
+  description?: string;
+  IsActive: boolean;
+};
+
+export interface UpdateCategoryRequest {
+  name: string;
+  description?: string;
+  isActive: boolean;
+};
 
 @Injectable({
   providedIn: 'root'
@@ -15,27 +33,24 @@ export class CategoryService {
     private http : HttpClient
   ) { }
 
-  AddCategory(model : AddCategoryRequest) : Observable<void> {
-    return this.http.post<void>(`${environment.apiBaseUrl}/api/categories`, model)
-
-  }
-
-  GetAllCategories() : Observable<Category[]>{
+   getAll(): Observable<Category[]> {
     return this.http.get<Category[]>(`${environment.apiBaseUrl}/api/Categories`);
   }
 
-  GetByIdCategory(id : string | null) : Observable<Category> {
+  getById(id: number): Observable<Category> {
     return this.http.get<Category>(`${environment.apiBaseUrl}/api/Categories/${id}`);
   }
 
-  UpdateCategory(id: string, updatcategoryrequest : UpdateCategoryRequest): Observable<Category> {
-    return this.http.put<Category>(`${environment.apiBaseUrl}/api/Categories/${id}`, updatcategoryrequest);
+  create(payload: CreateCategoryRequest): Observable<Category> {
+    return this.http.post<Category>(`${environment.apiBaseUrl}/api/Categories`, payload);
   }
 
-  DeleteCategory(id : string): Observable<Category>{
-    return this.http.delete<Category>(`${environment.apiBaseUrl}/api/Categories/${id}`);
+  update(id: number, payload: UpdateCategoryRequest): Observable<Category> {
+    return this.http.put<Category>(`${environment.apiBaseUrl}/api/Categories/${id}`, payload);
   }
 
-
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${environment.apiBaseUrl}/api/Categories/${id}`);
+  }
 
 }

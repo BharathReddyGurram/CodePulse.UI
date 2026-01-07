@@ -1,0 +1,81 @@
+<!-- src/app/features/auth/pages/login/login.component.html -->
+<div class="login-page">
+  <!-- Left column: brand + features -->
+  <div class="login-left">
+    <div class="brand-section">
+      <div class="logo">SM</div>
+      <h1>ShopMate</h1>
+      <p>Sign in to continue shopping</p>
+
+      <div class="features">
+        <div class="feature">
+          <span class="icon">⚡</span>
+          <span>Fast checkout</span>
+        </div>
+        <div class="feature">
+          <span class="icon">🛡️</span>
+          <span>Secure payments</span>
+        </div>
+        <div class="feature">
+          <span class="icon">📦</span>
+          <span>Real-time order tracking</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right column: login card -->
+  <div class="login-right">
+    <div class="login-card">
+      <h2>Sign in</h2>
+      <p class="subtitle">Enter your email and password</p>
+
+      <!-- Error banner -->
+      <div class="alert error" *ngIf="errorMessage">
+        <div class="icon">!</div>
+        <div class="text">
+          <strong>Login failed</strong>
+          <span>{{ errorMessage }}</span>
+        </div>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" formControlName="email" placeholder="you@example.com" />
+          <div class="error" *ngIf="hasError('email', 'required')">
+            Email is required
+          </div>
+          <div class="error" *ngIf="hasError('email', 'email')">
+            Invalid email format
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" formControlName="password" placeholder="••••••••" />
+          <div class="error" *ngIf="hasError('password', 'required')">
+            Password is required
+          </div>
+        </div>
+
+        <div class="form-footer">
+          <div class="remember">
+            <input type="checkbox" id="remember" />
+            <label for="remember">Remember me</label>
+          </div>
+          <a class="link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn-primary" [disabled]="loginForm.invalid || isLoading">
+          {{ isLoading ? 'Signing in...' : 'Sign in' }}
+        </button>
+      </form>
+
+      <p class="switch-text">
+        Don't have an account?
+        <a routerLink="/signup" class="link">Sign up</a>
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+<!-- src/app/features/auth/pages/signup/signup.component.html -->
+<div class="signup-page">
+  <div class="signup-left">
+    <div class="brand-section">
+      <div class="logo">SM</div>
+      <h1>ShopMate</h1>
+      <p>Join thousands of happy customers</p>
+      
+      <div class="features">
+        <div class="feature">
+          <span class="icon">🛒</span>
+          <span>Easy shopping</span>
+        </div>
+        <div class="feature">
+          <span class="icon">💳</span>
+          <span>Secure checkout</span>
+        </div>
+        <div class="feature">
+          <span class="icon">🚚</span>
+          <span>Fast delivery</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="signup-right">
+    <div class="signup-card">
+      <h2>Create Account</h2>
+      <p class="subtitle">Start shopping in minutes</p>
+<!-- Success message -->
+  <div class="alert success" *ngIf="isSuccess">
+    <div class="icon">✔</div>
+    <div class="text">
+      <strong>Account created!</strong>
+      <span>You will be redirected to login shortly.</span>
+    </div>
+  </div>
+
+  <!-- Error message -->
+  <div class="alert error" *ngIf="errorMessage">
+    <div class="icon">!</div>
+    <div class="text">
+      <strong>Something went wrong</strong>
+      <span>{{ errorMessage }}</span>
+    </div>
+  </div>
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" formControlName="firstName" />
+          <div class="error" *ngIf="hasError('firstName', 'required')">
+            First name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" formControlName="lastName" />
+          <div class="error" *ngIf="hasError('lastName', 'required')">
+            Last name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" formControlName="email" />
+          <div class="error" *ngIf="hasError('email', 'required')">
+            Email is required
+          </div>
+          <div class="error" *ngIf="hasError('email', 'email')">
+            Invalid email format
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" formControlName="password" />
+          <div class="error" *ngIf="hasError('password', 'required')">
+            Password is required
+          </div>
+          <div class="error" *ngIf="hasError('password', 'minlength')">
+            Password must be at least 6 characters
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input type="password" formControlName="confirmPassword" />
+          <div class="error" *ngIf="hasError('confirmPassword', 'required')">
+            Confirm password is required
+          </div>
+          <div class="error" *ngIf="signupForm.get('confirmPassword')?.hasError('mismatch')">
+            Passwords do not match
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary" [disabled]="signupForm.invalid || isLoading">
+          {{ isLoading ? 'Creating...' : 'Create Account' }}
+        </button>
+      </form>
+
+      <p class="switch-text">
+        Already have an account?
+        <a routerLink="/login" class="link">Sign in</a>
+      </p>
+    </div>
+  </div>
+</div>

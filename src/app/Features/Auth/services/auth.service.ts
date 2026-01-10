@@ -23,6 +23,7 @@ export interface AuthResponse {
   token: string;
   expiresAt: string;
   role: 'SuperAdmin' | 'Manager' | 'User';
+  firstname:string;
 }
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,7 @@ export interface AuthResponse {
 export class AuthService {
    private tokenKey = 'auth_token';
   private roleKey = 'auth_role';
+  private firstname='auth_firstname';
 
   constructor(private http: HttpClient) {}
 
@@ -43,6 +45,7 @@ export class AuthService {
         tap(res => {
           localStorage.setItem(this.tokenKey, res.token);
           localStorage.setItem(this.roleKey, res.role);
+          localStorage.setItem(this.firstname, res.firstname)
         })
       );
   }

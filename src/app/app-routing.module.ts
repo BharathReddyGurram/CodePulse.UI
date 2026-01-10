@@ -6,6 +6,8 @@ import { AddBlogpostComponent } from './Features/Blog-Post/add-blogpost/add-blog
 import { LoginComponent } from './Features/Auth/login/login.component';
 import { SignupComponent } from './Features/Auth/signup/signup.component';
 import { HomeComponent } from './Features/User-Screens/home/home.component';
+import { ProductComponent } from './Features/product/product.component';
+import { CartComponent } from './Features/User-Screens/cart/cart.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -15,6 +17,9 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   { path: 'signup', component: SignupComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'admin/product', component: ProductComponent },
+  { path: 'cart', component: CartComponent },
+
   {
   path: 'admin',
   loadChildren: () =>

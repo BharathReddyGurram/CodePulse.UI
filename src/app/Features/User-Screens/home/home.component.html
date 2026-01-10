@@ -1,123 +1,231 @@
-<!-- home.component.html -->
-<div class="home">
+<!-- user-home.component.html -->
+<div class="user-home">
+<div class="home-layout">
 
-  <!-- Hero -->
+  <aside class="filter-panel">
+      <header class="filter-header">
+        <h2>Filters</h2>
+        <button type="button" class="clear-btn">
+          Clear all
+        </button>
+      </header>
+
+      <!-- Category -->
+      <div class="filter-card">
+        <div class="filter-title-row">
+          <h3>Category</h3>
+        </div>
+        <ul class="filter-list">
+          <li>
+            <label>
+              <input
+                type="radio"
+                name="category"
+                [value]="null"
+                
+              />
+              <span>All</span>
+            </label>
+          </li>
+          <li *ngFor="let cat of categories">
+            <label>
+              <input
+                type="radio"
+                name="category"
+                [value]="cat.id"
+                
+              />
+              <span>{{ cat.name }}</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Price range -->
+      <div class="filter-card">
+        <div class="filter-title-row">
+          <h3>Price range</h3>
+        </div>
+        <div class="price-range-row">
+          <div class="field">
+            <label>Min</label>
+            <input
+              type="number"
+             
+            />
+          </div>
+          <div class="divider">–</div>
+          <div class="field">
+            <label>Max</label>
+            <input
+              type="number"
+            
+            />
+          </div>
+        </div>
+        <div class="price-pills">
+          <button type="button" >Under $50</button>
+          <button type="button" >$50 – $150</button>
+          <button type="button" >Over $150</button>
+        </div>
+      </div>
+
+      <!-- Quick filters -->
+      <div class="filter-card">
+        <div class="filter-title-row">
+          <h3>Quick filters</h3>
+        </div>
+        <div class="chip-row">
+          <button
+            type="button"
+            class="chip"
+           
+          >
+            In stock
+          </button>
+          <button
+            type="button"
+            class="chip"
+          
+          >
+            Featured
+          </button>
+          <button
+            type="button"
+            class="chip"
+           
+          >
+            On sale
+          </button>
+        </div>
+      </div>
+    </aside>
+  <!-- Hero / banner -->
+   <div class="home-main">
   <section class="hero">
-    <div class="hero-content">
-      <span class="eyebrow">Weekend sale is live</span>
-      <h1>Shop smarter, save more on everyday essentials.</h1>
+    <div class="hero-left">
+      <span class="hero-pill">Today’s picks</span>
+      <h1>Discover curated deals across every category.</h1>
       <p>
-        Discover curated deals on electronics, fashion, and home products — all in one clean,
-        distraction‑free shopping experience.
+        Shop electronics, fashion, home, and more – all in one smooth, distraction‑free experience.
       </p>
       <div class="hero-actions">
-        <button class="btn primary">Start shopping</button>
-        <button class="btn ghost">View all categories</button>
+        <button class="btn primary">Shop all deals</button>
+        <button class="btn ghost">New arrivals</button>
       </div>
 
-      <div class="hero-meta">
-        <div class="meta-item">
-          <span class="value">2k+</span>
-          <span class="label">Products</span>
-        </div>
-        <div class="meta-item">
-          <span class="value">500+</span>
-          <span class="label">Verified sellers</span>
-        </div>
-        <div class="meta-item">
-          <span class="value">4.8</span>
-          <span class="label">Average rating</span>
+      <div class="hero-deals">
+        <span class="deals-label">Rolling deals</span>
+        <div class="deals-text">
+          <span
+            *ngFor="let d of heroDeals; let i = index"
+            [class.active]="i === activeDealIndex"
+          >
+            {{ d }}
+          </span>
         </div>
       </div>
     </div>
 
-    <div class="hero-visual">
-      <div class="card-stack">
-        <div class="hero-card main">
-          <div class="badge">Today’s pick</div>
-          <div class="hero-product">
-            <div class="thumb"></div>
-            <div class="info">
-              <h3>Noise‑canceling headphones</h3>
-              <p>Crystal clear sound for work and play.</p>
-              <div class="price-row">
-                <span class="price">$129</span>
-                <span class="old-price">$169</span>
-                <span class="pill">-24%</span>
-              </div>
-            </div>
-          </div>
-          <div class="progress-row">
-            <div class="progress">
-              <div class="bar"></div>
-            </div>
-            <span class="progress-label">Almost gone · 12 left</span>
-          </div>
-        </div>
-
-        <div class="hero-mini">
-          <div>
-            <span class="mini-label">Live orders</span>
-            <span class="mini-value">37</span>
-          </div>
-          <div>
-            <span class="mini-label">Delivered today</span>
-            <span class="mini-value">214</span>
+    <div class="hero-right">
+      <div class="hero-banner-card">
+        <div class="banner-tag">Weekend sale</div>
+        <div class="banner-main">
+          <h2>Extra 20% off select categories</h2>
+          <p>Auto‑applied at checkout on eligible items.</p>
+          <div class="banner-badges">
+            <span>Headphones</span>
+            <span>Shoes</span>
+            <span>Beauty</span>
+            <span>Home</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Quick categories -->
-  <section class="section">
-    <div class="section-header">
-      <h2>Shop by category</h2>
-      <button class="link-btn">View all</button>
+  <!-- Error / loading -->
+  <div class="state" *ngIf="loading">Loading products…</div>
+  <div class="state error" *ngIf="!loading && error">{{ error }}</div>
+
+  <!-- Category sections -->
+  <section
+    class="category-section"
+    *ngFor="let group of grouped; trackBy: trackByCategoryId"
+  >
+    <div class="category-header">
+      <div>
+        <h2>{{ group.categoryName }}</h2>
+        <p>
+          Handpicked products from {{ group.categoryName }} to match what people are buying now.
+        </p>
+      </div>
+      <div class="category-controls" *ngIf="group.products.length > group.pageSize">
+        <button
+          type="button"
+          class="nav-chip"
+          (click)="prevPage(group)"
+          [disabled]="group.page === 1"
+        >
+          ‹
+        </button>
+           <span class="page-indicator">
+            Page {{ group.page }} / {{ getTotalPages(group) }}
+           </span>
+        <button
+          type="button"
+          class="nav-chip"
+          (click)="nextPage(group)"
+          [disabled]="group.page >= (group.products.length / group.pageSize)"
+        >
+          ›
+        </button>
+      </div>
     </div>
-    <div class="category-grid">
-      <button class="category-card">
-        <span class="icon">🎧</span>
-        <span class="title">Electronics</span>
-        <span class="caption">Gadgets, audio, and more</span>
-      </button>
-      <button class="category-card">
-        <span class="icon">👕</span>
-        <span class="title">Fashion</span>
-        <span class="caption">Men · Women · Kids</span>
-      </button>
-      <button class="category-card">
-        <span class="icon">🏠</span>
-        <span class="title">Home</span>
-        <span class="caption">Decor and essentials</span>
-      </button>
-      <button class="category-card">
-        <span class="icon">💻</span>
-        <span class="title">Work setup</span>
-        <span class="caption">Desks, chairs, monitors</span>
-      </button>
+
+    <div class="product-row">
+      <article
+        class="product-card"
+        *ngFor="let product of getProductsForCategory(group); trackBy: trackByProductId"
+      >
+        <div class="product-media">
+                 <img
+           [src]="getImageUrl(product)"
+           [alt]="product.name"
+           (error)="onImageError($event)"
+                   />
+
+          <div class="product-badge" *ngIf="product.oldPrice && product.oldPrice > product.price">
+            -{{ ((product.oldPrice - product.price) / product.oldPrice) * 100 | number:'1.0-0' }}%
+          </div>
+        </div>
+        <div class="product-body">
+          <h3>{{ product.name }}</h3>
+          <p *ngIf="product.shortDescription">{{ product.shortDescription }}</p>
+          <div class="price-row">
+            <span class="price">{{ product.price | currency }}</span>
+            <span class="old-price" *ngIf="product.oldPrice && product.oldPrice > product.price">
+              {{ product.oldPrice | currency }}
+            </span>
+          </div>
+        </div>
+        <div class="product-actions">
+          <button type="button" class="btn ghost">View details</button>
+          <button type="button" class="btn primary">Add to cart</button>
+        </div>
+      </article>
     </div>
   </section>
 
-  <!-- Trending deals -->
-  <section class="section">
-    <div class="section-header">
-      <h2>Trending deals</h2>
-      <span class="section-tag">Updated in real‑time</span>
-    </div>
-    <div class="deal-row">
-      <div class="deal-pill">
-        <span class="dot"></span>
-        <span>Extra 10% off on accessories</span>
-      </div>
-      <div class="deal-pill">
-        <span class="dot"></span>
-        <span>Free shipping over $50</span>
-      </div>
-      <div class="deal-pill">
-        <span class="dot"></span>
-        <span>Bundle and save on work setups</span>
-      </div>
-    </div>
-  </section>
+  <!-- Scroll to top -->
+  <button
+    class="scroll-top"
+    type="button"
+    *ngIf="showScrollTop"
+    (click)="scrollToTop()"
+  >
+    ↑
+  </button>
+   </div>
+</div>
 </div>

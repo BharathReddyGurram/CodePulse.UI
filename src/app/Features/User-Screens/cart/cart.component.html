@@ -1,1 +1,140 @@
-<p>cart works!</p>
+<!-- cart.component.html -->
+<section class="cart-shell">
+  <div class="cart-container">
+    <!-- Left: items -->
+    <div class="cart-main">
+      <header class="cart-header">
+        <div>
+          <h1>Shopping cart</h1>
+          <p class="cart-sub">
+            Review your items before checkout.
+          </p>
+        </div>
+        <span class="cart-count">{{ items.length }} items</span>
+      </header>
+
+      <div class="cart-items" *ngIf="items.length; else emptyState">
+        <article class="cart-item" *ngFor="let item of items">
+          <div class="item-thumb">
+            <img
+              [src]="item.thumbnailImageUrl || fallbackImage"
+              alt="{{ item.name }}"
+              (error)="onImageError($event)"
+            />
+          </div>
+
+          <div class="item-main">
+            <div class="item-top">
+              <div class="item-info">
+                <h2>{{ item.name }}</h2>
+                <p class="muted">
+                  {{ item.brand }} • {{ item.color || 'Default color' }}
+                </p>
+                <p class="muted small">
+                  {{ item.size || 'Standard size' }}
+                </p>
+                <p class="muted small">
+                  SKU: {{ item.sku || 'N/A' }}
+                </p>
+              </div>
+
+              <div class="item-price-block">
+                <div class="price-row">
+                  <span class="price">
+                    {{ item.price | currency : 'CAD' }}
+                  </span>
+                  <span
+                    class="old-price"
+                    *ngIf="item.oldPrice && item.oldPrice > item.price"
+                  >
+                    {{ item.oldPrice | currency : 'CAD' }}
+                  </span>
+                </div>
+                <p class="muted tiny">
+                  In stock • Ships in 2–3 days
+                </p>
+              </div>
+            </div>
+
+            <div class="item-bottom">
+              <div class="qty-pill">
+                <button type="button" (click)="decrement(item)">−</button>
+                <span>{{ item.quantity }}</span>
+                <button type="button" (click)="increment(item)">+</button>
+              </div>
+
+              <div class="item-actions">
+                <button type="button" class="link-btn" (click)="saveForLater(item)">
+                  Save for later
+                </button>
+                <button type="button" class="link-btn danger" (click)="remove(item)">
+                  Remove
+                </button>
+              </div>
+
+              <div class="item-line-total">
+                <span class="muted tiny">Subtotal</span>
+                <span class="line-total">
+                  {{ (item.price * item.quantity) | currency : 'CAD' }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <ng-template #emptyState>
+        <div class="cart-empty">
+          <div class="empty-icon">🛒</div>
+          <h2>Your cart is empty</h2>
+          <p class="muted">
+            Start by adding some products from the store.
+          </p>
+          <button type="button" class="primary-btn" (click)="goToStore()">
+            Browse store
+          </button>
+        </div>
+      </ng-template>
+    </div>
+
+    <!-- Right: summary -->
+    <aside class="cart-summary">
+      <div class="summary-card">
+        <h2>Order summary</h2>
+
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>{{ subtotal | currency : 'CAD' }}</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span class="muted tiny">Calculated at next step</span>
+        </div>
+        <div class="summary-row">
+          <span>Tax estimate</span>
+          <span>{{ taxEstimate | currency : 'CAD' }}</span>
+        </div>
+
+        <div class="summary-divider"></div>
+
+        <div class="summary-row total">
+          <span>Total</span>
+          <span>{{ total | currency : 'CAD' }}</span>
+        </div>
+
+        <button
+          type="button"
+          class="primary-btn wide"
+          [disabled]="!items.length"
+          (click)="checkout()"
+        >
+          Proceed to checkout
+        </button>
+
+        <p class="muted tiny trust">
+          Secured checkout • No extra fees
+        </p>
+      </div>
+    </aside>
+  </div>
+</section>

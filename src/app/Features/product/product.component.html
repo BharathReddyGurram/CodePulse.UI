@@ -1,0 +1,326 @@
+<!-- create-product.component.html -->
+<div class="product-page">
+  <header class="product-header">
+    <div>
+      <h1>Create product</h1>
+      <p>Fill in product details, pricing, classification, and media before publishing.</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn ghost" type="button" (click)="onCancel()">Cancel</button>
+      <button
+        class="btn primary"
+        type="submit"
+        form="createProductForm"
+        [disabled]="form.invalid || submitting"
+      >
+        {{ submitting ? 'Saving…' : 'Publish' }}
+      </button>
+    </div>
+  </header>
+
+  <form
+    id="createProductForm"
+    class="product-card"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    novalidate
+  >
+    <!-- Identity -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Identity</h2>
+        <span class="section-sub">How this product appears to customers.</span>
+      </div>
+
+      <div class="field">
+        <label for="name">Name<span class="req">*</span></label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          placeholder="Wireless noise‑canceling headphones"
+        />
+        <span class="hint">Clear, concise, and searchable.</span>
+        <span class="error" *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
+          Name is required.
+        </span>
+      </div>
+
+      <div class="field">
+        <label for="shortDescription">Short description</label>
+        <input
+          id="shortDescription"
+          type="text"
+          formControlName="shortDescription"
+          placeholder="Short one‑liner shown in cards."
+        />
+      </div>
+
+      <div class="field">
+        <label for="description">Full description</label>
+        <textarea
+          id="description"
+          rows="4"
+          formControlName="description"
+          placeholder="Describe features, materials, warranty, and use cases."
+        ></textarea>
+      </div>
+    </section>
+
+    <!-- Catalog & pricing -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Catalog & pricing</h2>
+        <span class="section-sub">Internal codes and price structure.</span>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="sku">SKU</label>
+          <input id="sku" type="text" formControlName="sku" placeholder="INT‑HD‑NC‑01" />
+        </div>
+        <div class="field">
+          <label for="barcode">Barcode</label>
+          <input id="barcode" type="text" formControlName="barcode" placeholder="EAN / UPC" />
+        </div>
+        <div class="field">
+          <label for="brand">Brand</label>
+          <input id="brand" type="text" formControlName="brand" placeholder="Brand name" />
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="price">Price</label>
+          <div class="input-with-addon">
+            <span class="addon">$</span>
+            <input
+              id="price"
+              type="number"
+              min="0"
+              step="0.01"
+              formControlName="price"
+              placeholder="129.99"
+            />
+          </div>
+        </div>
+        <div class="field">
+          <label for="oldPrice">Old price</label>
+          <div class="input-with-addon">
+            <span class="addon">$</span>
+            <input
+              id="oldPrice"
+              type="number"
+              min="0"
+              step="0.01"
+              formControlName="oldPrice"
+              placeholder="149.99"
+            />
+          </div>
+        </div>
+        <div class="field">
+          <label for="costPrice">Cost price</label>
+          <div class="input-with-addon">
+            <span class="addon">$</span>
+            <input
+              id="costPrice"
+              type="number"
+              min="0"
+              step="0.01"
+              formControlName="costPrice"
+              placeholder="80.00"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="stockQuantity">Stock</label>
+          <input
+            id="stockQuantity"
+            type="number"
+            min="0"
+            step="1"
+            formControlName="stockQuantity"
+            placeholder="25"
+          />
+          <span class="hint">Number of units currently available.</span>
+        </div>
+        <div class="field toggle-group">
+          <label>Status</label>
+          <div class="pill-toggle">
+            <span class="pill-label">Active</span>
+            <!-- You can later bind IsActive/IsFeatured if you add controls -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Classification -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Classification</h2>
+        <span class="section-sub">Categories, tags, and attributes.</span>
+      </div>
+
+      <div class="field">
+        <label for="categoryId">Primary category</label>
+        <select id="categoryId" formControlName="categoryId">
+          <option [ngValue]="null">Select category</option>
+          <option *ngFor="let c of categories" [ngValue]="c.id">
+            {{ c.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Additional categories</label>
+        <div class="pill-select">
+          <button
+            type="button"
+            class="pill"
+            *ngFor="let c of categories"
+            [class.selected]="isCategorySelected(c.id)"
+            (click)="toggleCategory(c.id)"
+          >
+            {{ c.name }}
+          </button>
+        </div>
+        <span class="hint">Use this to surface the product in multiple sections.</span>
+      </div>
+
+      <div class="field">
+        <label for="tags">Tags</label>
+        <input
+          id="tags"
+          type="text"
+          formControlName="tags"
+          placeholder="men, shoes, running"
+        />
+        <span class="hint">Comma‑separated keywords for search and filtering.</span>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="color">Color</label>
+          <input id="color" type="text" formControlName="color" placeholder="Black" />
+        </div>
+        <div class="field">
+          <label for="size">Size</label>
+          <input id="size" type="text" formControlName="size" placeholder="M / 42 / One size" />
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="weightKg">Weight (kg)</label>
+          <input
+            id="weightKg"
+            type="number"
+            min="0"
+            step="0.01"
+            formControlName="weightKg"
+            placeholder="0.70"
+          />
+        </div>
+        <div class="field">
+          <label for="widthCm">Width (cm)</label>
+          <input
+            id="widthCm"
+            type="number"
+            min="0"
+            step="0.1"
+            formControlName="widthCm"
+            placeholder="30"
+          />
+        </div>
+        <div class="field">
+          <label for="heightCm">Height (cm)</label>
+          <input
+            id="heightCm"
+            type="number"
+            min="0"
+            step="0.1"
+            formControlName="heightCm"
+            placeholder="20"
+          />
+        </div>
+        <div class="field">
+          <label for="depthCm">Depth (cm)</label>
+          <input
+            id="depthCm"
+            type="number"
+            min="0"
+            step="0.1"
+            formControlName="depthCm"
+            placeholder="10"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Media -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Media</h2>
+        <span class="section-sub">Upload a primary image for this product.</span>
+      </div>
+
+      <div class="media-layout">
+        <div class="image-shell" (click)="triggerImagePicker()">
+          <input
+            #fileInput
+            type="file"
+            accept="image/*"
+            (change)="onImageSelected($event)"
+            hidden
+          />
+          <ng-container *ngIf="imagePreview; else placeholder">
+            <img [src]="imagePreview" alt="Preview" />
+          </ng-container>
+          <ng-template #placeholder>
+            <div class="drop-hint">
+              <span class="icon">🖼️</span>
+              <span class="title">Click to upload</span>
+              <span class="subtitle">PNG, JPG · up to ~5 MB</span>
+            </div>
+          </ng-template>
+        </div>
+
+        <div class="media-info">
+          <span class="badge">Preview</span>
+          <p>Used on product cards, search results, and product pages.</p>
+          <button
+            class="link"
+            type="button"
+            (click)="clearImage()"
+            *ngIf="imagePreview"
+          >
+            Remove image
+          </button>
+        </div>
+      </div>
+    </section>
+  </form>
+
+  <div class="toast" *ngIf="successVisible">
+  <div class="toast-icon">
+    <span>✓</span>
+  </div>
+  <div class="toast-text">
+    <strong>Product published</strong>
+    <span>Redirecting to product list…</span>
+  </div>
+</div>
+
+<!-- Scroll to top -->
+  <button
+    class="scroll-top"
+    type="button"
+    *ngIf="showScrollTop"
+    (click)="scrollToTop()"
+  >
+    ↑
+  </button>
+</div>

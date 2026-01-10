@@ -40,7 +40,7 @@ export class CartComponent implements OnInit {
         price: 199.99,
         oldPrice: 229.99,
         quantity: 1,
-        thumbnailImageUrl: ''
+        thumbnailImageUrl: '/assets/placeholders/fossil.jpg'
       },
       {
         id: 2,
@@ -51,7 +51,7 @@ export class CartComponent implements OnInit {
         sku: 'WH-1001',
         price: 129.99,
         quantity: 2,
-        thumbnailImageUrl: ''
+        thumbnailImageUrl: '/assets/placeholders/headphones.avif'
       }
     ];
 

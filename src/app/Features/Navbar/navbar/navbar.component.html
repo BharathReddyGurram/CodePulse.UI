@@ -1,0 +1,69 @@
+<!-- navbar.component.html -->
+<nav class="app-navbar">
+  <div class="nav-inner">
+    <!-- Left: logo + brand -->
+    <div class="nav-left" (click)="goHome()">
+      <div class="nav-logo">SM</div>
+      <div class="nav-brand">
+        <span class="brand-name">ShopMate</span>
+        <span class="brand-sub">Commerce console</span>
+      </div>
+    </div>
+
+    <!-- Center: search (for users; for admins you can adapt to search products/users) -->
+    <div class="nav-center" *ngIf="showSearch">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          [placeholder]="searchPlaceholder"
+          [(ngModel)]="searchTerm"
+          (keyup.enter)="onSearch()"
+        />
+        <button class="search-btn" type="button" (click)="onSearch()">Search</button>
+      </div>
+    </div>
+
+    <!-- Right: role-based main menu -->
+    <div class="nav-right">
+    <ul class="nav-menu">
+  <li
+    *ngFor="let item of visibleMenu"
+    class="nav-item menu-wrapper"
+    [class.active]="isActive(item)"
+    [class.has-submenu]="item.label === 'Manage'"
+  >
+    <button type="button" class="menu-trigger" (click)="navigate(item)">
+      <span class="icon" *ngIf="item.icon">{{ item.icon }}</span>
+      <span class="label">{{ item.label }}</span>
+    </button>
+
+    <ul class="nav-submenu menu" *ngIf="item.label === 'Manage'">
+      <li>
+        <button type="button" (click)="navigateTo('admin/categories')">
+          Add Category
+        </button>
+      </li>
+      <li>
+        <button type="button" (click)="navigateTo('admin/product')">
+          Add Product
+        </button>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+
+
+
+      <!-- User/role chip -->
+      <div class="nav-profile">
+        <div class="avatar">{{ initials }}</div>
+        <div class="profile-meta">
+          <span class="user-name">{{ displayName }}</span>
+          <span class="user-role">{{ currentRole | titlecase }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

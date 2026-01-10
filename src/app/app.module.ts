@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './Core/Components/navbar/navbar.component';
 import { CategoryListComponent } from './Features/Category/category-list/category-list.component';
 import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -18,6 +17,9 @@ import { RouterModule } from '@angular/router';
 import { AuthInterceptor } from './Core/auth.interceptor';
 import { HomeComponent } from './Features/User-Screens/home/home.component';
 import { CartComponent } from './Features/User-Screens/cart/cart.component';
+import { ProductComponent } from './Features/product/product.component';
+import { CommonModule } from '@angular/common';
+import { NavbarComponent } from './Features/Navbar/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { CartComponent } from './Features/User-Screens/cart/cart.component';
     LoginComponent,
     SignupComponent,
     HomeComponent,
-    CartComponent
+    CartComponent,
+    ProductComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,8 @@ import { CartComponent } from './Features/User-Screens/cart/cart.component';
     MarkdownModule.forRoot(),
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    CommonModule
   ],
   providers: [{
       provide: HTTP_INTERCEPTORS,
